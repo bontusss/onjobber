@@ -1,0 +1,16 @@
+{
+    "cSpell.words": [
+        "allauth",
+        "APIJOBS",
+        "autoslug",
+        "basicprofile",
+        "defaultdb",
+        "emailaddress",
+        "jobboard",
+        "locat",
+        "Onjobber",
+        "psycopg",
+        "socialaccount"
+    ],
+    "python.formatting.provider": "black"
+}

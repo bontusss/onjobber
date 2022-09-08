@@ -1,0 +1,145 @@
+{% extends 'dashboard-base.html' %}
+<!-- ======================= dashboard Detail ======================== -->
+{% block content %}
+<div class="dashboard-content">
+  <div class="dashboard-tlbar d-block mb-5">
+    <div class="row">
+      <div class="colxl-12 col-lg-12 col-md-12">
+        <h1 class="ft-medium">Post A New Job</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item text-muted"><a href="#">Home</a></li>
+            <li class="breadcrumb-item text-muted">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="#" class="theme-cl">Post Job</a>
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-widg-bar d-block">
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="_dashboard_content bg-white rounded mb-4">
+          <div class="_dashboard_content_header br-bottom py-3 px-3">
+            <div class="_dashboard__header_flex">
+              <h4 class="mb-0 ft-medium fs-md">
+                <i class="fa fa-file mr-1 theme-cl fs-sm"></i>Post Job
+              </h4>
+            </div>
+          </div>
+
+          <div class="_dashboard_content_body py-3 px-3">
+            <form class="row" method="POST">
+              {% csrf_token %} {{form.media}}
+
+              <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">Job Title</label>
+                      {{form.title}}
+                    </div>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="form-group">{{form.description}}</div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">Location</label>
+                      {{form.location}}
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">Skills</label>
+                      {{form.skills}}
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">Career Level</label>
+                      {{form.experience_level}}
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">Job Type</label>
+                      {{form.type}}
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">Company</label>
+                      {{form.company}}
+                    </div>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium"
+                        >Application Deadline</label
+                      >
+                      {{form.deadline}}
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">Country</label>
+                      {{form.country}}
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">State</label>
+                      {{form.state}}
+                    </div>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">Full Address</label>
+                      {{form.full_address}}
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="form-group">
+                      <label class="text-dark ft-medium">Job Category</label>
+                      {{form.category}}
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="form-group">
+                      <button
+                        type="submit"
+                        class="btn btn-md ft-medium text-light rounded theme-bg"
+                      >
+                        Publish Job
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock content %}
+  <!-- ======================= dashboard Detail End ======================== -->
+</div>
