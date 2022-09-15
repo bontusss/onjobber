@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "allauth",
+        "ANYMAIL",
         "APIJOBS",
         "autoslug",
         "basicprofile",
@@ -8,6 +9,7 @@
         "emailaddress",
         "jobboard",
         "locat",
+        "Mailjet",
         "Onjobber",
         "psycopg",
         "socialaccount"

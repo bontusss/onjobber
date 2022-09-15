@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'hfugvgufkuyofyfuftyyyrc!456789jlknkljbkh'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "pages.apps.PagesConfig",
     'ckeditor',
     'phonenumber_field',
+    'anymail'
 ]
 
 MIDDLEWARE = [
@@ -88,25 +89,25 @@ WSGI_APPLICATION = "jobboard.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-# if env("DJANGO_DEV") == "True":
+if env("DJANGO_DEV") == "True":
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
-# else:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.postgresql_psycopg2",
-#             "NAME": "defaultdb",
-#             "USER": "",
-#             "PASSWORD": os.environ.get(""),
-#             "HOST": "",
-#             "PORT": "",
-#         }
-#     }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": "defaultdb",
+            "USER": "",
+            "PASSWORD": 'os.environ.get("")',
+            "HOST": "",
+            "PORT": "",
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -131,14 +132,21 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-# for dev purpose to send confirmation emails
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# ANYMAIL = {
+#     "MAILJET_API_KEY": env('MAILJET_API_KEY'),
+#     "MAILJET_SECRET_KEY": env('MAILJET_API_SECRET_KEY')
+# }
 
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Workplex'
+# for dev purpose to send confirmation emails
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # this setting is for display the emails on the console
+# EMAIL_BACKEND = 'anymail.backends.mailjet.EmailBackend'
+# EMAIL_HOST = env('EMAIL_HOST')
+# EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+# EMAIL_PORT = env('EMAIL_PORT')
+# DEFAULT_FROM_EMAIL = 'mrbjm1994@gmail.com'
 
 
 # Internationalization
