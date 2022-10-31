@@ -1,3 +1,4 @@
+
 from django.db import models
 
 from recruiters.models import Job, Skill
@@ -7,6 +8,8 @@ from autoslug import AutoSlugField
 from django.utils import timezone
 from ckeditor.fields import RichTextField
 
+
+# A list of job types
 JOB_TYPE = (
     ("Full Time", "Full Time"),
     ("Internship", "Internship"),
@@ -32,64 +35,13 @@ AGES= (
     ("4", "46-55 Years"),
 )
 
-
-class Qualification(models.Model):
-    title = models.CharField(max_length=200, help_text="Title of the qualification.")
-    institution = models.CharField(
-        max_length=100, help_text="Institution you got it from."
-    )
-    year = models.DateTimeField()
-    about = models.TextField(help_text="Brief info about this qualification.")
-
-    def __str__(self):
-        return self.title
+CATEGORY = (
+    ('Banking', 'Banking'),
+    ('Medical', 'Medical'),
+    ('Technology', 'Technology'),
+)
 
 
-class Experience(models.Model):
-    title = models.CharField(max_length=200)
-    location = models.CharField(max_length=50)
-    job_title = models.CharField(max_length=100)
-    started = models.DateTimeField()
-    ended = models.DateTimeField()
-    about = models.TextField()
-
-    def __str__(self):
-        return self.title
-
-
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
-#     full_name = models.CharField(max_length=100, null=True)
-#     job_title = models.CharField(max_length=100, null=True, help_text='Javascript Developer')
-#     bio = RichTextField()
-#     slug = AutoSlugField(populate_from='user', unique=True)
-#     phone = models.CharField(max_length=15, null=True)
-#     skills = models.ManyToManyField(Skill)
-#     email = models.CharField(max_length=100, null=True)
-#     Country = CountryField(max_length=100, null=True, blank_label='(select country)')
-#     resume = models.FileField(upload_to='resumes', null=True, blank=True)
-#     job_type = models.CharField(max_length=50, choices=JOB_TYPE, default='Full Time')
-#     experience_level = models.CharField(max_length=50, choices=LEVEL, default='Beginner', help_text='Eg: Beginner, '
-#                                                                                                     'Senior')
-#     current_salary = models.CharField(max_length=50, choices=SALARIES,default='1', help_text='10-50k')
-#     language = models.CharField(max_length=100, null=True, help_text='Eg: English, Hindi')
-#     location = models.CharField(max_length=255, null=True, blank=True)
-#     age = models.CharField(max_length=50, choices=AGES, default='2')
-#     qualifications = models.ManyToManyField(Qualification)
-#     looking_for = models.CharField(max_length=50, choices=JOB_TYPE, default="Remote")
-#     facebook_link = models.URLField(blank=True, null=True)
-#     twitter_link = models.URLField(blank=True, null=True)
-#     linkedin_link = models.URLField(blank=True, null=True)
-#     github_link = models.URLField(blank=True, null=True)
-    
-#     def get_absolute_url(self):
-#         return "/{}".format(self.slug)
-
-#     def save(self, *args, **kwargs):
-#         super().save(*args, **kwargs)
-
-#     def __str__(self):
-#         return self.user.username
     
     
 class SavedJobs(models.Model):
@@ -112,3 +64,49 @@ class AppliedJobs(models.Model):
 
     def __str__(self):
         return self.job.title
+
+
+class Education(models.Model):
+    """
+    Education history added to resume
+    """
+    school_name = models.CharField(max_length=100, help_text="The School you attended")
+    degree_title = models.CharField(max_length=100, help_text="Eg. Masters in Computer Science")
+    start_date = models.DateField()
+    end_date = models.DateField()
+    note = models.TextField(help_text="Brief info about this qualification.")
+
+    def __str__(self):
+        return '{} from {}'.format(self.degree_title, self.school_name)
+
+
+class Experience(models.Model):
+    employer = models.CharField(max_length=100, help_text="The name of the company you have worked for.")
+    job_title = models.CharField(max_length=100, help_text="Your job title at the company.")
+    start_date = models.DateField()
+    end_date = models.DateField()
+    note = models.TextField(help_text="Brief info about your work at the company.")
+
+    def __str__(self):
+        return '{} at {}'.format(self.job_title.title, self.employer.title)
+
+class Resume(models.Model):
+    image = models.ImageField(upload_to="resumes/image", blank=True)
+    name = models.CharField(max_length=200, blank=True)
+    title = models.CharField(max_length=100, blank=True, default="Eg: Web Developer")
+    category = models.CharField(choices=CATEGORY, blank=True, max_length=100)
+    email = models.EmailField(blank=True)
+    content = models.TextField(blank=True)
+    employer = models.CharField(max_length=100, help_text="The name of the company you have worked for.")
+    job_title = models.CharField(max_length=100, help_text="Your job title at the company.")
+    start_date = models.DateField()
+    end_date = models.DateField()
+    note = models.TextField(help_text="Brief info about your work at the company.")
+    school_name = models.CharField(max_length=100, help_text="The School you attended")
+    degree_title = models.CharField(max_length=100, help_text="Eg. Masters in Computer Science")
+    start_date = models.DateField()
+    end_date = models.DateField()
+    note = models.TextField(help_text="Brief info about this qualification.")
+
+    def __str__(self):
+        return 'Resume for {}'.format(self.job_title)

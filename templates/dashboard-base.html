@@ -116,9 +116,9 @@
         <div class="dashboard-nav">
           <div class="dashboard-inner">
             <ul data-submenu-title="Main Navigation">
-              <li class="active"><a href="candidate-dashboard.html"><i class="lni lni-dashboard mr-2"></i>Dashboard</a></li>
-              <li><a href="dashboard-manage-resume.html"><i class="lni lni-files mr-2"></i>Manage Resumes</a></li>
-              <li><a href="dashboard-add-resume.html"><i class="lni lni-add-files mr-2"></i>Create Resume</a></li>
+              <li class="active"><a href="{% url 'candidates:candidate-dashboard' %}"><i class="lni lni-dashboard mr-2"></i>Dashboard</a></li>
+              <li><a href="#"><i class="lni lni-files mr-2"></i>Manage Resumes</a></li>
+              <li><a href="{% url 'candidates:create-resume' %}"><i class="lni lni-add-files mr-2"></i>Create Resume</a></li>
               <li><a href="dashboard-applied-jobs.html"><i class="lni lni-briefcase mr-2"></i>Applied jobs</a></li>
               <li><a href="dashboard-alert-job.html"><i class="ti-bell mr-2"></i>Alert Jobs<span class="count-tag bg-warning">4</span></a></li>
               <li><a href="dashboard-saved-jobs.html"><i class="lni lni-bookmark mr-2"></i>Bookmark Jobs</a></li>
@@ -137,11 +137,11 @@
       {% endif %}
       {% block content %}{% endblock content %}
       <!-- footer -->
-      <div class="row">
+      {% comment %} <div class="row">
         <div class="col-md-12">
           <div class="py-3">© 2022 Workplex.</div>
         </div>
-      </div>
+      </div> {% endcomment %}
     </div>
     </div>
   

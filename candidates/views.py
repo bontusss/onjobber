@@ -1,5 +1,7 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
+from candidates.forms import CreateResumeForm
 
 from users.models import Profile
 
@@ -21,3 +23,18 @@ def dashboard(request):
         'profile': profile,
     }
     return render(request, 'candidate/dashboard.html', context)
+
+
+
+def create_resume(request):
+    if request.method == 'POST':
+        form = CreateResumeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Resume was created successfully!')
+            return redirect('create-resume')
+        else:
+            messages.error(request, 'Resume was not created!')
+    else:
+        form = CreateResumeForm()
+    return render(request, 'candidate/create-resume.html', {'form': form})

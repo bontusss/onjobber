@@ -1,6 +1,6 @@
 from unicodedata import category
 from django.shortcuts import render, redirect
-import requests
+# import requests
 from django.contrib import messages
 # from candidates.models import Profile
 from pages.forms import NewsletterForm
@@ -14,7 +14,10 @@ from users.models import Profile
 def index(request):
     # this throws an error when user is not authenticated
     current_user = request.user
-    profile = Profile.objects.filter(user=current_user)
+
+    if request.user is not None:
+        profile = Profile.objects.filter(user=current_user).first()
+
     categories = Category.objects.filter(is_active=True)
     jobs = Job.objects.all()
     # candidates = Profile.objects.filter(is_candidate=True)

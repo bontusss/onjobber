@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from users.forms import SignUpForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth import login
+from django.http import HttpResponse
 # from django.contrib import messages
 from django.template.loader import render_to_string
 
@@ -37,7 +38,18 @@ def activate(request, uidb64, token):
 
 
 def sign_up(request):
+    """
+    Registers user and send email authentication email to the user.
+    """
     if request.method == "POST":
+        # check if cookies is enabled on the browser
+        if request.session.text_cookie_worked():
+            request.session.delete_test_cookie()
+        else:
+            # Refactor this code to show a better UI
+            return HttpResponse("Please enable Cookies and try again.")
+            
+        request.session.set_test_cookie()
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -59,13 +71,6 @@ def sign_up(request):
                 'token': account_activation_token.make_token(user),
             })
             user.email_user(subject, message)
-            # username = form.cleaned_data.get("username")
-            # password = form.cleaned_data.get("password1")
-            # user = authenticate(
-            #     username=username,
-            #     password=password,
-            # )
-            # login(request, user)
             return redirect("activation_sent")
 
     else:

@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "candidates.apps.CandidatesConfig",
     "pages.apps.PagesConfig",
     'ckeditor',
-    'phonenumber_field',
+    # 'phonenumber_field',
 ]
 
 MIDDLEWARE = [
